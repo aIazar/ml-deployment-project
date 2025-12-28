@@ -2,6 +2,8 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import pandas as pd
 import joblib
+from fastapi.middleware.cors import CORSMiddleware
+
 
 # -------------------------------------------------
 # Initialize FastAPI app
@@ -10,6 +12,14 @@ app = FastAPI(
     title="Loan Approval Prediction API",
     description="Predict loan approval using Logistic Regression and Decision Tree models",
     version="1.0"
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # later we can restrict this
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # -------------------------------------------------
