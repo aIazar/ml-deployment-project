@@ -1,34 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Loan Approval Predictor</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Loan Approval Prediction</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<div class="container">
-    <h1>Loan Approval Prediction</h1>
+<div class="app">
+  <div class="card">
 
-    <form id="loanForm">
-        <input type="number" placeholder="Age" id="person_age" required />
-        <input type="text" placeholder="Gender (male/female)" id="person_gender" required />
-        <input type="text" placeholder="Education" id="person_education" required />
-        <input type="number" placeholder="Income" id="person_income" required />
-        <input type="number" placeholder="Employment Experience (years)" id="person_emp_exp" required />
-        <input type="text" placeholder="Home Ownership (rent/own/mortgage)" id="person_home_ownership" required />
-        <input type="number" placeholder="Loan Amount" id="loan_amnt" required />
-        <input type="text" placeholder="Loan Intent" id="loan_intent" required />
-        <input type="number" step="0.01" placeholder="Interest Rate" id="loan_int_rate" required />
-        <input type="number" step="0.01" placeholder="Loan % Income" id="loan_percent_income" required />
-        <input type="number" placeholder="Credit History Length" id="cb_person_cred_hist_length" required />
-        <input type="number" placeholder="Credit Score" id="credit_score" required />
-        <input type="text" placeholder="Previous Default (yes/no)" id="previous_loan_defaults_on_file" required />
+    <h1>Loan Approval Predictor</h1>
+    <p class="subtitle">Machine Learning–powered decision support</p>
 
-        <button type="submit">Predict</button>
+    <form id="loan-form">
+
+      <section>
+        <h2>Personal Information</h2>
+
+        <div class="field">
+          <label>Age</label>
+          <input type="number" id="person_age" required>
+        </div>
+
+        <div class="field">
+          <label>Gender</label>
+          <select id="person_gender">
+            <option value="">Select</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Education Level</label>
+          <select id="person_education">
+            <option value="">Select</option>
+            <option value="High School">High School</option>
+            <option value="Bachelor">Bachelor</option>
+            <option value="Master">Master</option>
+            <option value="PhD">PhD</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Annual Income</label>
+          <input type="number" id="person_income">
+        </div>
+
+        <div class="field">
+          <label>Employment Experience (years)</label>
+          <input type="number" id="person_emp_exp">
+        </div>
+
+        <div class="field">
+          <label>Home Ownership</label>
+          <select id="person_home_ownership">
+            <option value="">Select</option>
+            <option value="rent">Rent</option>
+            <option value="own">Own</option>
+            <option value="mortgage">Mortgage</option>
+          </select>
+        </div>
+      </section>
+
+      <section>
+        <h2>Loan Details</h2>
+
+        <div class="field">
+          <label>Loan Amount</label>
+          <input type="number" id="loan_amnt">
+        </div>
+
+        <div class="field">
+          <label>Loan Purpose</label>
+          <select id="loan_intent">
+            <option value="">Select</option>
+            <option value="education">Education</option>
+            <option value="medical">Medical</option>
+            <option value="venture">Venture</option>
+            <option value="personal">Personal</option>
+            <option value="homeimprovement">Home Improvement</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Interest Rate (%)</label>
+          <input type="number" step="0.01" id="loan_int_rate">
+        </div>
+
+        <div class="field">
+          <label>Loan % of Income</label>
+          <input type="number" step="0.01" id="loan_percent_income">
+        </div>
+      </section>
+
+      <section>
+        <h2>Credit Information</h2>
+
+        <div class="field">
+          <label>Credit History Length (years)</label>
+          <input type="number" id="cb_person_cred_hist_length">
+        </div>
+
+        <div class="field">
+          <label>Credit Score</label>
+          <input type="number" id="credit_score">
+        </div>
+
+        <div class="field">
+          <label>Previous Loan Default</label>
+          <select id="previous_loan_defaults_on_file">
+            <option value="">Select</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </div>
+      </section>
+
+      <button type="submit">Predict Loan Approval</button>
     </form>
 
-    <div id="result"></div>
+    <div id="result" class="result hidden"></div>
+
+  </div>
 </div>
 
 <script src="script.js"></script>

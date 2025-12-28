@@ -1,31 +1,48 @@
-document.getElementById("loanForm").addEventListener("submit", async function (e) {
-    e.preventDefault();
+document.getElementById("loan-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
 
-    const data = {
-        person_age: Number(document.getElementById("person_age").value),
-        person_gender: document.getElementById("person_gender").value,
-        person_education: document.getElementById("person_education").value,
-        person_income: Number(document.getElementById("person_income").value),
-        person_emp_exp: Number(document.getElementById("person_emp_exp").value),
-        person_home_ownership: document.getElementById("person_home_ownership").value,
-        loan_amnt: Number(document.getElementById("loan_amnt").value),
-        loan_intent: document.getElementById("loan_intent").value,
-        loan_int_rate: Number(document.getElementById("loan_int_rate").value),
-        loan_percent_income: Number(document.getElementById("loan_percent_income").value),
-        cb_person_cred_hist_length: Number(document.getElementById("cb_person_cred_hist_length").value),
-        credit_score: Number(document.getElementById("credit_score").value),
-        previous_loan_defaults_on_file: document.getElementById("previous_loan_defaults_on_file").value
-    };
+  const resultBox = document.getElementById("result");
+  resultBox.className = "result";
+  resultBox.textContent = "Predicting...";
+  resultBox.classList.remove("hidden");
 
+  const data = {
+    person_age: Number(person_age.value),
+    person_gender: person_gender.value,
+    person_education: person_education.value,
+    person_income: Number(person_income.value),
+    person_emp_exp: Number(person_emp_exp.value),
+    person_home_ownership: person_home_ownership.value,
+    loan_amnt: Number(loan_amnt.value),
+    loan_intent: loan_intent.value,
+    loan_int_rate: Number(loan_int_rate.value),
+    loan_percent_income: Number(loan_percent_income.value),
+    cb_person_cred_hist_length: Number(cb_person_cred_hist_length.value),
+    credit_score: Number(credit_score.value),
+    previous_loan_defaults_on_file: previous_loan_defaults_on_file.value
+  };
+
+  try {
     const response = await fetch("http://127.0.0.1:8000/predict", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
     });
 
     const result = await response.json();
 
-    document.getElementById("result").innerText =
-        `Logistic Regression: ${result.logistic_regression_prediction === 1 ? "Approved" : "Rejected"}
-Decision Tree: ${result.decision_tree_prediction === 1 ? "Approved" : "Rejected"}`;
+    if (result.logistic_regression_prediction === 1) {
+      resultBox.textContent = "✅ Loan Approved";
+      resultBox.classList.add("approved");
+    } else {
+      resultBox.textContent = "❌ Loan Rejected";
+      resultBox.classList.add("rejected");
+    }
+
+    resultBox.scrollIntoView({ behavior: "smooth" });
+
+  } catch {
+    resultBox.textContent = "⚠️ Backend not reachable";
+    resultBox.classList.add("rejected");
+  }
 });
