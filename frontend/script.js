@@ -6,6 +6,20 @@ document.getElementById("loan-form").addEventListener("submit", async (e) => {
   resultBox.textContent = "Predicting...";
   resultBox.classList.remove("hidden");
 
+  const person_age = document.getElementById("person_age");
+  const person_gender = document.getElementById("person_gender");
+  const person_education = document.getElementById("person_education");
+  const person_income = document.getElementById("person_income");
+  const person_emp_exp = document.getElementById("person_emp_exp");
+  const person_home_ownership = document.getElementById("person_home_ownership");
+  const loan_amnt = document.getElementById("loan_amnt");
+  const loan_intent = document.getElementById("loan_intent");
+  const loan_int_rate = document.getElementById("loan_int_rate");
+  const loan_percent_income = document.getElementById("loan_percent_income");
+  const cb_person_cred_hist_length = document.getElementById("cb_person_cred_hist_length");
+  const credit_score = document.getElementById("credit_score");
+  const previous_loan_defaults_on_file = document.getElementById("previous_loan_defaults_on_file");
+
   const data = {
     person_age: Number(person_age.value),
     person_gender: person_gender.value,
@@ -45,4 +59,11 @@ document.getElementById("loan-form").addEventListener("submit", async (e) => {
     resultBox.textContent = "⚠️ Backend not reachable";
     resultBox.classList.add("rejected");
   }
+});
+
+document.getElementById("resetBtn").addEventListener("click", () => {
+  const resultBox = document.getElementById("result");
+  resultBox.className = "result hidden";
+  resultBox.textContent = "";
+  document.getElementById("loan-form").reset();
 });
