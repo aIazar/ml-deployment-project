@@ -1,11 +1,19 @@
+let firstRequest = true;
+
 document.getElementById("loan-form").addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const resultBox = document.getElementById("result");
+  const warningBox = document.getElementById("coldStartWarning");
+
   resultBox.className = "result";
   resultBox.textContent = "Predicting...";
   resultBox.classList.remove("hidden");
 
+  
+  if (firstRequest) {
+    warningBox.classList.remove("hidden");
+  }
 
   const person_age = document.getElementById("person_age");
   const person_gender = document.getElementById("person_gender");
@@ -21,11 +29,9 @@ document.getElementById("loan-form").addEventListener("submit", async (e) => {
   const credit_score = document.getElementById("credit_score");
   const previous_loan_defaults_on_file = document.getElementById("previous_loan_defaults_on_file");
 
-
   const model_type = document.querySelector(
     'input[name="model_type"]:checked'
   ).value;
-
 
   const data = {
     person_age: Number(person_age.value),
@@ -56,26 +62,34 @@ document.getElementById("loan-form").addEventListener("submit", async (e) => {
 
     const result = await response.json();
 
+ 
+    warningBox.classList.add("hidden");
+    firstRequest = false;
+
     if (result.loan_approved === 1) {
-      resultBox.textContent = `✅ Loan Approved (${result.model_used})`;
+      resultBox.textContent = ` Loan Approved (${result.model_used})`;
       resultBox.classList.add("approved");
     } else {
-      resultBox.textContent = `❌ Loan Rejected (${result.model_used})`;
+      resultBox.textContent = ` Loan Rejected (${result.model_used})`;
       resultBox.classList.add("rejected");
     }
 
     resultBox.scrollIntoView({ behavior: "smooth" });
 
   } catch (error) {
+    warningBox.classList.add("hidden");
     resultBox.textContent = "⚠️ Backend not reachable";
     resultBox.classList.add("rejected");
   }
 });
 
-
 document.getElementById("resetBtn").addEventListener("click", () => {
   const resultBox = document.getElementById("result");
+  const warningBox = document.getElementById("coldStartWarning");
+
   resultBox.className = "result hidden";
   resultBox.textContent = "";
+  warningBox.classList.add("hidden");
+
   document.getElementById("loan-form").reset();
 });

@@ -132,7 +132,6 @@
             <input type="number" id="credit_score">
           </div>
 
-
           <div class="field">
             <label>Previous Loan Default</label>
             <select id="previous_loan_defaults_on_file">
@@ -149,6 +148,13 @@
         </div>
 
       </form>
+
+      <div id="coldStartWarning" class="warning-box hidden">
+        ⚠️ Note: The backend is hosted on Render free tier.
+        The first request after inactivity may take longer due to cold start.
+        Subsequent predictions are fast.
+
+      </div>
 
       <div id="result" class="result hidden"></div>
 

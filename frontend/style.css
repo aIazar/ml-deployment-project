@@ -140,6 +140,25 @@ button:hover {
   display: none;
 }
 
+.warning-box {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeeba;
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin-bottom: 15px;
+  margin-top: 10px;
+  font-weight: 500;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  transition: opacity 0.3s ease;
+}
+
+.warning-box.hidden {
+  display: none;
+}
+
+
 @keyframes pop {
   0% { transform: scale(0.8); opacity: 0; }
   100% { transform: scale(1); opacity: 1; }
